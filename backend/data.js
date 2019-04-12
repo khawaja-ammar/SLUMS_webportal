@@ -32,7 +32,7 @@ const sports = new Schema({
   });
 
 const teams = new Schema({
-	team_id:  Number,
+    team_id:  Number,
     name: String,
     sports_id: Number,
     status: String,
@@ -61,4 +61,11 @@ const individuals = new Schema({
   });
 
 // export the new Schema so we could modify it using Node.js
-module.exports = mongoose.model("Data", DataSchema);
+module.exports = mongoose.model("events", DataSchema);
+module.exports = mongoose.model("individuals", DataSchema);
+module.exports = mongoose.model("team_ind", DataSchema);
+module.exports = mongoose.model("event_matches", DataSchema);
+module.exports = mongoose.model("event_sports", DataSchema);
+module.exports = mongoose.model("sports", DataSchema);
+module.exports = mongoose.model("matches", DataSchema);
+module.exports = mongoose.model("teams", DataSchema);
