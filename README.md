@@ -1,2 +1,3 @@
-# SLUMS_webportal
-SE - Group 9 Project
+useful links:
+
+heroku add-on for mongo_lab guide: https://coursework.vschool.io/deploying-mern-with-heroku/
