@@ -1,21 +1,37 @@
+const express = require("express");
+const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 require('dotenv').config();
-const express = require('express')
-const app = express()
-const port = 3000
+const app = express();
+const passport = require('passport')
 
 
-const cors = require('cors')
+const users = require('./routes/api/users')
+// Bodyparser middleware
+app.use(
+  bodyParser.urlencoded({
+    extended: false
+  })
+);
+app.use(bodyParser.json());
 
-console.log(process.env.MY_SECRET);
+app.use(passport.initialize())
+require('./config/passport')(passport)
 
-app.use(cors())
+app.use('/api/users', users)
+// DB Config
+const db = process.env.mongoURI;
+// Connect to MongoDB
+mongoose
+  .connect(
+    db,
+    { useNewUrlParser: true }
+  )
+  .then(() => console.log("MongoDB successfully connected"))
+  .catch(err => console.log(err));
+const port = process.env.PORT; // process.env.port is Heroku's port if you choose to deploy the app there
+app.listen(port, () => console.log(`Server up and running on port ${port} !`));
 
-app.get('/', (req, res) => res.send('Hello World!!'))
-app.get('/Another', (req, res) => res.send('Hello World!'))
-app.get('/example/b', function (req, res, next) {
-  console.log('the response will be sent by the next function ...')
-}, function (req, res) {
-  res.send('Hello from B!')
+app.get('/', (req,res) => {
+	res.send('<button>Hello From The Other Side</button>')
 })
-
-app.listen(port, () => console.log(`Example app listening on port ${process.env.PORT}!`))
