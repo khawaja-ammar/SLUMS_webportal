@@ -1,8 +1,14 @@
 {
-  "name": "myapp",
-  "version": "1.0.0",
-  "description": "",
-  "main": "sample.js",
+  "name": "se-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "2.1.8"
+  },
   "scripts": {
     "start": "nodemon myapp.js",
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -25,11 +31,20 @@
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "validator": "^10.11.0"
+
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
   },
-  "devDependencies": {
-    "@babel/core": "^7.4.3",
-    "@babel/node": "^7.2.2",
-    "@babel/preset-env": "^7.4.3",
-    "nodemon": "^1.18.11"
-  }
+  "eslintConfig": {
+    "extends": "react-app"
+
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
 }
