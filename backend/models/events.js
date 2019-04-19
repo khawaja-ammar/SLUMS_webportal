@@ -1,6 +1,78 @@
 const mongoose = require('mongoose')
 const Schema = mongoose.Schema
 
+// INDEX: 
+//			MATCH
+//			SPORTS
+//			EVENTS
+
+
+const matchSchema = new Schema({
+
+	eventId : {
+		type : String,
+		required : true
+	},
+
+	sportsID :{
+		type : String,
+		required : true
+	},
+	team1ID : {
+		type : String,
+		required : true
+
+	},
+	team2ID: {
+		type : String,
+		required : true
+
+	},
+	winner : {
+		type: String
+
+	},
+	score:{
+		type: String
+	},
+	location:{
+		type: String
+	},
+	date:{
+		type: Date
+	}
+
+})
+
+const sportsSchema = new Schema({
+
+	sportsID : {
+		type : Number,
+		required : true
+	},
+
+	name : {
+		type : String,
+		required: true
+	},
+	eventID : {
+		type : Number,
+		required : true
+	},
+
+	category : {
+		type : String,
+		required: true
+	},
+	matches : {
+		type : [matchSchema],
+		default : undefined
+	}
+
+})
+
+
+
 const eventSchema = new Schema({
 
 	name : {
@@ -18,6 +90,11 @@ const eventSchema = new Schema({
 	},
 	info : {
 		type: String
+	},
+	sports : {
+		type : [sportsSchema],
+		default : undefined,
+		required : true
 	}
 
 })
