@@ -11,7 +11,7 @@ const event = require("../../models/events")
 //const validatecreateEvent = require('../../validation/createEvent')
 
 // First GET 
-
+// default should be ongoing event...... modify
 router.get('/:id?', (req, res) => {
 
 	const name = req.params.id
@@ -64,7 +64,7 @@ router.post('/', (req,res) => {
 	
 })
 
-//modify
+//modify should be able to modify only events , if modification is of sports or matches then call next middleware function
 router.put('/:id', (req, res) => {
 	const name = req.params.id
 	event.findOneAndUpdate({name}, req.body, (err, doc) => {
@@ -75,7 +75,7 @@ router.put('/:id', (req, res) => {
 	})
 }),
 
-//delete:
+//delete: will delete everything..... also need to delete teams.....
 
 router.delete('/:id', (req,res) => {
 	const name = req.params.id

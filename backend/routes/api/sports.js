@@ -73,27 +73,50 @@ router.post('/:id', (req,res) => {
 //modify exisiting sport of event.....
 router.put('/:id/:sportname/:sportcategory', (req, res) => {
 	const name = req.params.id
-	sport.findOneAndUpdate({name}, req.body, (err, doc) => {
-		if(err){
-			return res.status(500).json('error occured')
+	event.findOne({name}).then( event => {
+		if(!event){
+			return res.status(400).json({namenotfound: "No event found by that name!", name})
 		}
-		res.send('success!')
+		else{
+			event.sports.forEach( sport => {
+
+				if(sport.name == req.params.sportname && sport.category == req.params.sportcategory){
+					
+					if(req.body.name){
+						sport.name = req.body.name
+						
+					}
+					if(req.body.category){
+						sport.category = req.body.category
+					}
+					event.save()
+					res.send(sport)
+					return
+					
+				}
+			})
+			res.status(400).send("Error: no sports of that category or name")
+		}
 	})
-}),
+	
+})
 
 //delete:
 
-router.delete('/:id', (req,res) => {
+router.delete('/:id/:sportname/:sportcategory', (req,res) => {
 	const name = req.params.id
-	sport.findOneAndRemove({name}, (err,doc) => {
-		if(err){
-			return res.status(500).json('Error')
+	event.findOne({name}).then( event => {
+		if(!event){
+			return res.status(400).json({namenotfound: "No event found by that name!", name})
 		}
-		res.send('Success!')
-
+		else{
+				event.sports.splice(event.sports.findIndex(e => e.name === req.params.sportname && e.category === req.params.sportcategory),1)
+				event.
+				save()
+				res.send(event)
+		}
 	})
-	// also delete all sportes and associated sports and teams
-
+	
 })
 
 
