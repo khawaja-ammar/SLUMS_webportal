@@ -53,7 +53,8 @@ router.post('/', (req,res) => {
 			name : req.body.name,
 			start_date : req.body.start_date,
 			end_date : req.body.end_date,
-			info : 	req.body.info
+			info : 	req.body.info,
+			sports : req.body.sports
 			})
 	newEvent
 		.save()

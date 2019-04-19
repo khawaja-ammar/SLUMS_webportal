@@ -9,15 +9,7 @@ const Schema = mongoose.Schema
 
 const matchSchema = new Schema({
 
-	eventId : {
-		type : String,
-		required : true
-	},
-
-	sportsID :{
-		type : String,
-		required : true
-	},
+	
 	team1ID : {
 		type : String,
 		required : true
@@ -46,18 +38,9 @@ const matchSchema = new Schema({
 
 const sportsSchema = new Schema({
 
-	sportsID : {
-		type : Number,
-		required : true
-	},
-
 	name : {
 		type : String,
 		required: true
-	},
-	eventID : {
-		type : Number,
-		required : true
 	},
 
 	category : {
@@ -77,7 +60,8 @@ const eventSchema = new Schema({
 
 	name : {
 		type : String,
-		required: true
+		required: true,
+		unique : true
 	},
 
 	start_date : {
@@ -99,4 +83,4 @@ const eventSchema = new Schema({
 
 })
 
-module.exports = User = mongoose.model('event', eventSchema, 'events')
+module.exports = User = mongoose.model('events', eventSchema, 'events')

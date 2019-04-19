@@ -1,10 +1,13 @@
 const express = require('express')
 const router = express.Router()
-const sport = require("../../models/sports")
+const event = require("../../models/events")
+const sports = require("../../models/sports")
 
 
+// need to use both name and category as PK.....
 
 
+//Currently not using this as there are some questions we need to ask....
 router.get('/:id?', (req, res) => {
 
 	const name = req.params.id
@@ -39,25 +42,36 @@ router.get('/:id?', (req, res) => {
 })
 
 // Now post
- // create
-router.post('/', (req,res) => {
+ // create sports of an event....
+router.post('/:id', (req,res) => {
 
-		const newsport = new sport({
-			eventId : req.body.eventId,
-			name : req.body.name,
-			category : req.body.category
+	const name = req.params.id
+	event.findOne({name}).then( event => {
+		console.log(event)
+		if(!event){
+			return res.status(400).json({namenotfound: "No event found by that name!", name})
+		}
+		else
+		{
+			const newsport = new sports({
+				name : req.body.name,
+				category : req.body.category
 
 			})
-	newsport
-		.save()
-		.then( sport => res.json(sport))
-		.catch( err => console.log(err))
+			event.sports.push(newsport)
+			res.json(newsport)
+			event.save()
 
+	
+
+			
+		}
+	})
 	
 })
 
-//modify
-router.put('/:id', (req, res) => {
+//modify exisiting sport of event.....
+router.put('/:id/:sportname/:sportcategory', (req, res) => {
 	const name = req.params.id
 	sport.findOneAndUpdate({name}, req.body, (err, doc) => {
 		if(err){
