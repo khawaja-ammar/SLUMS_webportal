@@ -6,3 +6,6 @@ Also for the creation/deletion of sports etc you will have to use the requisite 
 Matches:
 Initially, matches will be passed as an array of matches to sports since the user cannot create matches individually.
 However, during event admin may use scheduler which might return just a single match for instance at the end. So adding a single match to array, deleting match and modifying match in array will all be dealt with in the 'routes/match'
+Backend Frontend communication:
+1. The frontend request an entire event.  (Cache events?)
+2. For all  transactions regarding matches, sports frontend will send their respective ID to server which will identify based on these. 
