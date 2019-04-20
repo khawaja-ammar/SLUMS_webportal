@@ -23,10 +23,12 @@ const matchSchema = new Schema({
 		type: String
 	},
 	location:{
-		type: String
+		type: String,
+		required : true
 	},
 	date:{
-		type: Date
+		type: Date,
+		required : true
 	}
 
 })
@@ -45,7 +47,7 @@ const sportsSchema = new Schema({
 	},
 	matches : {
 		type : [matchSchema],
-		default : undefined
+		default : []
 	}
 
 })

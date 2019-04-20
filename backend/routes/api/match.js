@@ -1,10 +1,12 @@
 const express = require('express')
 const router = express.Router()
+const event = require("../../models/events")
+const sports = require("../../models/sports")
 const match = require("../../models/matches")
 
 // possible interaction  get/ delete modify : FRont End allocate time and location will simply use modify!
 
-//get
+//get undecided ask TA
 router.get('/:id?', (req, res) => {
 
 	const name = req.params.id
@@ -39,21 +41,35 @@ router.get('/:id?', (req, res) => {
 })
 
 // Now post
- // create
-router.post('/', (req,res) => {
+ // create matches : given an array 
+router.post('/:id/:sportname/:sportcategory', (req,res) => {
 
-		const newmatch = new match({
-			eventId : req.body.eventId,
-			sportsID : req.body.sportsID,
-			team1ID : req.body.team1ID,
-			team2ID : req.body.team2ID
+	const name = req.params.id
+	event.findOne({name}).then( event => {
 
+		if(!event){
+			return res.status(400).json({eventnotfound:"Event not found",name})
+		}
+		else{
+			event.sports.forEach( sport => {
+				console.log('sport', sport)
+				if(sport.name == req.params.sportname && sport.category == req.params.sportcategory){
+					console.log('found sport',sport)
+					const newMatch = new match({
+						team1ID : req.body.team1ID,
+						team2ID : req.body.team2ID,
+						location: req.body.location,
+						date: req.body.date
+
+					})
+					sport.matches.push(newMatch)
+					res.send(newMatch)
+					event.save()
+				}
 			})
-	newmatch
-		.save()
-		.then( match => res.json(match))
-		.catch( err => console.log(err))
+		}
 
+	})
 	
 })
 

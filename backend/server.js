@@ -17,9 +17,9 @@ mongoose
 
 app.use("/api/events", require("./routes/api/events")) // get events 
 
-//app.use("/api/match", require("./routes/api/match"))
-
 app.use("/api/sports", require("./routes/api/sports"))
+
+app.use("/api/match", require("./routes/api/match"))
 
 
 const PORT = 5000;

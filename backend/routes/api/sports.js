@@ -47,7 +47,6 @@ router.post('/:id', (req,res) => {
 
 	const name = req.params.id
 	event.findOne({name}).then( event => {
-		console.log(event)
 		if(!event){
 			return res.status(400).json({namenotfound: "No event found by that name!", name})
 		}
@@ -73,6 +72,7 @@ router.post('/:id', (req,res) => {
 //modify exisiting sport of event.....
 router.put('/:id/:sportname/:sportcategory', (req, res) => {
 	const name = req.params.id
+	var found = false
 	event.findOne({name}).then( event => {
 		if(!event){
 			return res.status(400).json({namenotfound: "No event found by that name!", name})
@@ -81,7 +81,7 @@ router.put('/:id/:sportname/:sportcategory', (req, res) => {
 			event.sports.forEach( sport => {
 
 				if(sport.name == req.params.sportname && sport.category == req.params.sportcategory){
-					
+					found = true
 					if(req.body.name){
 						sport.name = req.body.name
 						
@@ -89,13 +89,19 @@ router.put('/:id/:sportname/:sportcategory', (req, res) => {
 					if(req.body.category){
 						sport.category = req.body.category
 					}
+					if(req.body.matches){
+						sport.matches = req.body.matches
+					}
 					event.save()
 					res.send(sport)
+					
 					return
 					
 				}
 			})
-			res.status(400).send("Error: no sports of that category or name")
+			if(!found){
+			return res.status(400).json({error:"Error: no sports of that category or name"})			
+			}
 		}
 	})
 	
