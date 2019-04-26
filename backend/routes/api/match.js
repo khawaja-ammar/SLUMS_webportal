@@ -73,7 +73,7 @@ router.post('/:id/:sportname/:sportcategory', (req,res) => {
 	
 })
 
-//modify
+//modify for any match change val of match
 router.put('/:id', (req, res) => {
 	const name = req.params.id
 	match.findOneAndUpdate({name}, req.body, (err, doc) => {
