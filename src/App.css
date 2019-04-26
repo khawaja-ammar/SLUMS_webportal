@@ -16,7 +16,87 @@ body{
     /* color: black */
     display: block;
     /* border: 1px solid #555; */
-
-
-
 }
+
+/*                                                                   */
+/*                                                                   */
+/*                                                                   */
+/*                                                                   */
+/*                                                                   */
+
+/* *{
+    margin: 0;
+    padding: 0;
+}
+
+.load{
+    animation: slide 2s;
+}
+
+.slider{
+    background-repeat: repeat;
+    background-size: cover;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    animation: slide 40s infinite;
+}
+
+.content{
+	color: #fff;
+	width: 100%;
+	height: 100vh;
+	background-color: rgba(0,0,0,0.5);
+}
+
+.principal{
+	left: 70%;
+	top: 70%;
+	transform: translate(-50%,-50%);
+	position: absolute;
+	letter-spacing: 5px;
+	text-align: center;
+	font-size:90px; 
+}
+
+.principal h1{
+	font-size: 70px;
+	margin-bottom: 20px;
+}
+
+.principal p{
+	font-size: 20px;
+}
+
+@keyframes slide{
+	0%{
+		background-image: url('images/image1.jpg')
+	}
+	10%{
+		background-image: url('images/image2.jpg')
+	}
+	20%{
+		background-image: url('images/image3.jpg')
+	}
+	30%{
+		background-image: url('images/image4.jpg')
+	}
+	40%{
+		background-image: url('images/image5.jpg')
+	}
+	50%{
+		background-image: url('images/image6.jpg')
+	}
+	60%{
+		background-image: url('images/image7.jpg')
+	}
+	70%{
+		background-image: url('images/image8.jpg')
+	}
+	80%{
+		background-image: url('images/image9.jpg')
+	}
+	90%{
+		background-image: url('images/image10.jpg')
+	}
+} */

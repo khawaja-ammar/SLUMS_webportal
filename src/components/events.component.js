@@ -20,9 +20,17 @@ export default class events extends Component {
     constructor (props) {
         super(props)
         this.state = {
-            logged_in: this.props.location.state.login_status 
+            logged_in: ''
         }
         //VERIFY STATUS
+    }
+    componentDidMount () {
+        if (typeof (this.props.location.state) === 'undefined') {
+            alert('Please Use Navigation Bar Links to access this page for Security Reasons')
+            this.props.history.push("/");
+        } else {
+            this.setState({logged_in: this.props.location.state.login_status});
+        }
     }
 
     render() {

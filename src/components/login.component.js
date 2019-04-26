@@ -12,7 +12,7 @@ export default class Login extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            login_status: this.props.location.state.login_status,
+            login_status: '',
             login_state_func: props.login_button,
             username: '',
             password: '',
@@ -21,9 +21,14 @@ export default class Login extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    // componentDidMount () {
-    //     this.setState({login_status: this.props.location.state.login_status});
-    // }
+    componentDidMount () {
+        if (typeof (this.props.location.state) === 'undefined') {
+            alert('Please Use Navigation Bar Links to access this page for Security Reasons')
+            this.props.history.push("/");
+        } else {
+            this.setState({login_status: this.props.location.state.login_status});
+        }
+    }
 
     handleChange (e) {
         this.setState({[e.target.id]: e.target.value});
