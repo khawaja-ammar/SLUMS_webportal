@@ -2,13 +2,17 @@ import React, { Component } from 'react';
 // import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 // import home from './components/home.component';
+// import events from './components/events.component';
+// import sports from './components/sports.component';
+// import matches from './components/matches.component';
+// import aboutus from './components/aboutus.component';
 
 
-export default class login extends Component {
+export default class Login extends Component {
     constructor (props) {
         super(props);
         this.state = {
-            login_status: '',
+            login_status: this.props.location.state.login_status,
             login_state_func: props.login_button,
             username: '',
             password: '',
@@ -17,9 +21,9 @@ export default class login extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
-    componentDidMount () {
-        this.setState({login_status: this.props.location.state.login_status});
-    }
+    // componentDidMount () {
+    //     this.setState({login_status: this.props.location.state.login_status});
+    // }
 
     handleChange (e) {
         this.setState({[e.target.id]: e.target.value});
@@ -54,6 +58,7 @@ export default class login extends Component {
                     password: '',
                     login_status: 'Logout'
                 });
+                this.props.history.push("/");
             }
         } else if (e.target.id === 'logout') {
             this.state.login_state_func('Login', '');
@@ -62,6 +67,7 @@ export default class login extends Component {
                 username: '',
                 login_status: 'Login'
             })
+            this.props.history.push("/");
         }
 
     }

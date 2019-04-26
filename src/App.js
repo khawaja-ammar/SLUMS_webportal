@@ -51,10 +51,6 @@ class App extends Component {
       <Router>
         <div className="container">
 
-
-
-
-
           <nav id='main_nav' className='navbar navbar-expand-lg navbar-light' >
             <a className='navbar-brand'>
               <img src={logo} width='80' height='116' alt=''/>
@@ -62,7 +58,10 @@ class App extends Component {
             {/* <div className='collapse navbar-collapse'> */}
               <ul className='navbar-nav mr-auto'>
                 <li className='navbar-item'><Link to='/' className='nav-link'>Home</Link></li>
-                <li className='navbar-item'><Link to='/events' className='nav-link'>Events</Link></li>
+                {/* <li className='navbar-item'><Link to='/events' className='nav-link'>Events</Link></li> */}
+                <li className='navbar-item'>
+                  <Link to={{pathname:'/events', state: {login_status: this.state.login_status}}} className='nav-link'>Events</Link>
+                </li>
                 <li className='navbar-item'><Link to='/sports' className='nav-link'>Sports</Link></li>
                 <li className='navbar-item'><Link to='/matches' className='nav-link'>Matches</Link></li>
                 <li className='navbar-item'><Link to='/aboutus' className='nav-link'>About Us</Link></li>
