@@ -8,37 +8,28 @@ const sports = require("../../models/sports")
 
 
 //Currently not using this as there are some questions we need to ask....
-router.get('/:id?', (req, res) => {
+router.get('/:id/:sportid?', (req, res) => {
 
 	const name = req.params.id
-	if(name){
-		// does sport exist?
-		// if so fetch and send
-		sport.findOne({name}).then( sport => {
-			if(!sport){
-				return res.status(400).json({namenotfound: "No sport found by that name!", name})
+	event.findOne({name}).then( ev => {
+		if(!ev){
+			return res.status(400).json({namenotfound: "No sport found by that name!", name})
+		}
+		const sportid = req.params.sportid
+		const allSports = ev.sports
+		if(!sportid){
+			return res.send(allSports)
+		}
+		allSports.find( sp => {
+			if(sp._id == sportid){
+				res.send(sp)
+
 			}
-			res.json(sport)
 		})
-		
-	}
-	else
-	{
-		var Usermap = {};
-		//no params so get all sports
-		sport.find({}, (err, ev) => {
+	//	res.send(allSports)
 
-			
-			ev.forEach( ev => {
-				Usermap[ev.name] = ev
-			})
-
-			res.send(Usermap)
-
-		})
-
+	})
 	
-	}
 })
 
 // Now post

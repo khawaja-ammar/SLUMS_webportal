@@ -6,86 +6,80 @@ const match = require("../../models/matches")
 
 // possible interaction  get/ delete modify : FRont End allocate time and location will simply use modify!
 
-//get undecided ask TA
-router.get('/:id?', (req, res) => {
+// No get for matches.... when we get sports matches will come automatically
+
+//  post
+// Request will contain an array of matches although array may just have a single match
+router.post('/:id/:sportid', (req,res) => {
 
 	const name = req.params.id
-	if(name){
-		// does match exist?
-		// if so fetch and send
-		match.findOne({name}).then( match => {
-			if(!match){
-				return res.status(400).json({namenotfound: "No match found by that name!", name})
-			}
-			res.json(match)
-		})
-		
-	}
-	else
-	{
-		var Usermap = {};
-		//no params so get all matchs
-		match.find({}, (err, ev) => {
-
-			
-			ev.forEach( ev => {
-				Usermap[ev.name] = ev
-			})
-
-			res.send(Usermap)
-
-		})
-
-	
-	}
-})
-
-// Now post
- // create matches : given an array 
-router.post('/:id/:sportname/:sportcategory', (req,res) => {
-
-	const name = req.params.id
+	const sportid = req.params.sportid
+	var sportfound = false
 	event.findOne({name}).then( event => {
 
 		if(!event){
 			return res.status(400).json({eventnotfound:"Event not found",name})
 		}
 		else{
-			event.sports.forEach( sport => {
-				console.log('sport', sport)
-				if(sport.name == req.params.sportname && sport.category == req.params.sportcategory){
-					console.log('found sport',sport)
-					const newMatch = new match({
-						team1ID : req.body.team1ID,
-						team2ID : req.body.team2ID,
-						location: req.body.location,
-						date: req.body.date
-
+			event.sports.find( sport => {
+				if(sport._id == sportid){
+					//insert all matches =>
+					sportfound = true
+					req.body.matches.forEach( mtch => {
+						const newmatch = new match({
+							team1ID : mtch.team1ID,
+							team2ID : mtch.team2ID,
+							location : mtch.location,
+							date : mtch.date
+						})
+						sport.matches.push(newmatch)
 					})
-					sport.matches.push(newMatch)
-					res.send(newMatch)
-					event.save()
+					res.send(sport)
+
 				}
+
 			})
+			if(!sportfound){
+				return res.status(400).json({sportnotfound:"No sport of this id ",sportid})
+			}
+			event.save()
+
 		}
 
 	})
 	
 })
 
-//modify for any match change val of match
-router.put('/:id', (req, res) => {
+//input will be an array of matches that have been modified. Each match in array will replace corresponding match in existing array
+router.put('/:id/:sportid', (req, res) => {
 	const name = req.params.id
-	match.findOneAndUpdate({name}, req.body, (err, doc) => {
-		if(err){
-			return res.status(500).json('error occured')
+	const sportid = req.params.sportid
+	var sportfound = false
+	event.findOne({name}).then( event => {
+		if(!event){
+			return res.status(400).json({noevent:"No event by that name",name})
 		}
-		res.send('success!')
+		event.sports.find( sport => {
+			if(sport._id == sportid){
+				sportfound = true
+				const matchesToAdd = req.body.matches
+				var newMatches = matchesToAdd.map( obj => sport.matches.find( o => o._id === obj._id) || obj)
+				sport.matches = b
+				res.send("Success")
+			}
+		})
+		if(!sportfound){
+				return res.status(400).json({sportnotfound:"No sport of this id ",sportid})
+			}
+
+		event.save()
+
 	})
+
 }),
 
-//delete:
-
+//No options for delete since you cant change number of matches
+/*
 router.delete('/:id', (req,res) => {
 	const name = req.params.id
 	match.findOneAndRemove({name}, (err,doc) => {
@@ -98,6 +92,6 @@ router.delete('/:id', (req,res) => {
 	// also delete all matches and associated sports and teams
 
 })
-
+*/
 
 module.exports = router

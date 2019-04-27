@@ -12,6 +12,7 @@ const event = require("../../models/events")
 
 // First GET 
 // default should be ongoing event...... modify
+//currently gets all events
 router.get('/:id?', (req, res) => {
 
 	const name = req.params.id
@@ -46,7 +47,7 @@ router.get('/:id?', (req, res) => {
 })
 
 // Now post
- // create
+ // create event
 router.post('/', (req,res) => {
 
 		const newEvent = new event({
@@ -92,11 +93,3 @@ router.delete('/:id', (req,res) => {
 
 
 module.exports = router
-
-
-
-
-
-
-
-

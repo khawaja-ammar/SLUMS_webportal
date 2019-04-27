@@ -23,11 +23,13 @@ const matchSchema = new Schema({
 	},
 	location:{
 		type: String,
-		required : true
+		required : true,
+		default : 'Unknown'
 	},
 	date:{
 		type: Date,
-		required : true
+		required : true,
+		default : Date.now
 	}
 
 })
