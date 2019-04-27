@@ -5,6 +5,15 @@ export default class view_events extends Component {
         return (
             <div>
                 <p>View Events</p>
+                <p>View Events</p>
+                <p>View Events</p>
+                <p>View Events</p>
+                <p>View Events</p>
+                <p>View Events</p>
+                <p>View Events</p>
+                <p>View Events</p>
+                <p>View Events</p>
+
             </div>
         )
     }

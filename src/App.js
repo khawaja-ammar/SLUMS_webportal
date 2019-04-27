@@ -38,14 +38,6 @@ class App extends Component {
     }
   }
 
-  // login_button(e) {
-  //   if (this.state.login_status === 'Login') {
-  //     this.setState({login_status: 'Logout'})
-  //   } else {
-  //     this.setState({login_status: 'Login'})
-  //   }
-  // }
-
   render() {
     return (
       <Router>

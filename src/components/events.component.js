@@ -39,7 +39,7 @@ export default class events extends Component {
             return (
                 <Router>
                     <div className='container' style={{height:'100%', width:'100%', overflow:'hidden'}}>
-                        <div id='event-nav' style={{float:'left', width:'20%'}}>
+                        <div id='event-nav' style={{float:'left', width:'20%', height:'100%'}}>
                             <nav className='navbar navbar-expand-lg navbar-light'>
                                 {/* <div className='collapse navbar-collapse'> */}
                                 <ul className='navbar-nav nav-pills flex-column'>
@@ -51,7 +51,7 @@ export default class events extends Component {
                                 {/* </div> */}
                             </nav> 
                         </div>
-                        <div stlye={{float:'left', width:'80%'}}><br/>
+                        <div stlye={{float:'left', width:'80%', height:'100%'}}><br/>
                             <Route path='/events/view' component={view_Events}/>
                             <Route path='/events/scores' component={pla_view_scores}/>
                             <Route path='/events/upcoming' component={pla_view_upcoming}/>
