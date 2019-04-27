@@ -16,7 +16,25 @@ body{
     /* color: black */
     display: block;
     /* border: 1px solid #555; */
+}
 
 
 
+/* FOR HOME PAGE SLIDESHOW */
+.slide-container {
+	width: 70%;
+	margin: auto; 
+}
+.each-slide > div {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-size: cover;
+	height: 500px;
+}
+.each-slide span {
+	padding: 20px;
+	font-size: 20px;
+	/* background: #efefef; */
+	text-align: center;
 }

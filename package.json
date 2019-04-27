@@ -6,7 +6,7 @@
     "bcrypt": "^3.0.5",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.18.3",
-    "build": "react-scripts build",
+    "bootstrap": "^4.3.1",
     "concurrently": "^4.1.0",
     "cors": "^2.8.5",
     "dotenv": "^7.0.0",
@@ -19,14 +19,16 @@
     "passport": "^0.4.0",
     "passport-jwt": "^4.0.0",
     "react": "^16.8.6",
-    "react-router": "^5.0.0",
-    "start": "react-scripts start",
-    "test": "react-scripts test",
+    "react-dom": "^16.8.6",
+    "react-router-dom": "^5.0.0",
+    "react-scripts": "^3.0.0",
+    "react-slideshow-image": "^1.1.5",
     "validator": "^10.11.0"
   },
   "scripts": {
-    "start": "nodemon myapp.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "react-scripts start",
+    "test": "react-scripts test",
+    "validator": "^10.11.0"
   },
   "keywords": [],
   "author": "",

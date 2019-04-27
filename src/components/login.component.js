@@ -2,9 +2,13 @@ import React, { Component } from 'react';
 // import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 // import home from './components/home.component';
+// import events from './components/events.component';
+// import sports from './components/sports.component';
+// import matches from './components/matches.component';
+// import aboutus from './components/aboutus.component';
 
 
-export default class login extends Component {
+export default class Login extends Component {
     constructor (props) {
         super(props);
         this.state = {
@@ -18,7 +22,12 @@ export default class login extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount () {
-        this.setState({login_status: this.props.location.state.login_status});
+        if (typeof (this.props.location.state) === 'undefined') {
+            alert('Please Use Navigation Bar Links to access this page for Security Reasons')
+            this.props.history.push("/");
+        } else {
+            this.setState({login_status: this.props.location.state.login_status});
+        }
     }
 
     handleChange (e) {
@@ -54,6 +63,7 @@ export default class login extends Component {
                     password: '',
                     login_status: 'Logout'
                 });
+                this.props.history.push("/");
             }
         } else if (e.target.id === 'logout') {
             this.state.login_state_func('Login', '');
@@ -62,6 +72,7 @@ export default class login extends Component {
                 username: '',
                 login_status: 'Login'
             })
+            this.props.history.push("/");
         }
 
     }

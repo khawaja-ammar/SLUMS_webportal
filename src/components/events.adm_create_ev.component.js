@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 
-export default class view_scores extends Component {
+export default class adm_create_ev extends Component {
     render() {
         return (
             <div>
-                <p>View Scores</p>
+                <p>Admin Create Event Hello how are you</p>
             </div>
         )
     }
