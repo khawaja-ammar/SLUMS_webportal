@@ -23,7 +23,7 @@ export default class Login extends Component {
     }
     componentDidMount () {
         if (typeof (this.props.location.state) === 'undefined') {
-            alert('Please Use Navigation Bar Links to access this page for Security Reasons')
+            // alert('Please Use Navigation Bar Links to access this page for Security Reasons')
             this.props.history.push("/");
         } else {
             this.setState({login_status: this.props.location.state.login_status});
@@ -82,7 +82,7 @@ export default class Login extends Component {
             return (
                 <div className="Login" style={{textAlign: 'center'}}>
                     <form id='login' onSubmit={this.handleSubmit}>
-                        <label style={{width: '500px', height: '9px'}}>{this.state.login_msg}</label><br/>
+                        <label style={{width: '500px', height: '9px', display:'block'}}>{this.state.login_msg}</label><br/>
                         <label>Username:</label><br/>
                         <input type='text' id='username' value={this.state.username} onChange={this.handleChange}/><br/>
                         <label>Password:</label><br/>

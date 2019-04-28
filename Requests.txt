@@ -1,0 +1,106 @@
+Requests:
+
+Events: 
+
+1. Get:
+	No body
+	Parameter: event name or no parameter
+
+2. Create:
+	No parameter
+	Body:
+		{
+		"name" : "hamza6",
+		"start_date": "2012-12-11T19:00:00.000Z",
+		"end_date": "2012-12-11T19:00:00.000Z",
+		"info" : "Something",
+		"sports": [
+			{
+				"name" : "cricket",
+				"category" : "Under 15"
+			},
+			{
+				"name" : "football",
+				"category": "All boys"
+			},
+			{
+				"name" : "football",
+				"category": "All men"
+			}
+			]
+		}
+
+3. Modify:
+	Parameter: event name
+	Body: 
+		{
+			key : value //i.e whatever key value pair you want to change you can lest will remain fine
+		}
+4. Delete:
+	Parameter: event name
+	No bosy
+
+Sports:
+
+1.Get:
+	Paramter : Event name and  optionaly sportID  
+	No body
+2.Create:
+	Paramter : Event name 
+	Body: 
+		{
+			name : "",
+			category : "",
+		}
+3.Modify:
+
+	Paramter : Event name and SportID
+	Body: 
+		{
+			key: "value"
+		}
+
+4.Delete:
+	Paramter : Event name and SportID
+	No body
+
+Matches:
+1.Create:
+	Paramter : Event name and SportID
+	Body: 
+		{
+			"matches" :[
+			{
+				"team1ID" : "bla",
+				"team2ID" :"blah1",
+				"location": "aaa"
+			},
+			{
+				"team1ID" : "bl2",
+				"team2ID" :"blah3"
+			}
+			]
+		}
+2. Modify:
+	Paramter : Event name and SportID
+	Body : 
+		{ 
+		"matches": 
+			[
+				{
+				"_id": "5cbb471c1b14444d36928caf",
+			    "team1ID": "Chelsea",
+			    "team2ID": "Barcelona",
+			    "location": "somewhere",
+			    "date": "2012-12-11T00:00:00.000Z"
+				}
+			]
+		}
+	
+
+
+
+
+
+
+

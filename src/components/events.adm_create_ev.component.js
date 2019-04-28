@@ -1,92 +1,164 @@
 import React, { Component } from 'react';
-// import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+const axios = require('axios')
 
-// import home from './components/home.component';
-// import events from './components/events.component';
-// import sports from './components/sports.component';
-// import matches from './components/matches.component';
-// import aboutus from './components/aboutus.component';
+const ip = 'http://localhost:5000/api/events'
 
-
-export default class Login extends Component {
-    constructor (props) {
-        super(props);
+export default class adm_create_ev extends Component {
+    constructor(props) {
+        super(props)
         this.state = {
-            eventname: '',
-            startdate: '',
-            enddate: '',
+            msg: '',
+            ev_name: '',
+            st_date: '',
+            en_date: '',
             info: '',
-            sports: ''
-        };
-       /* this.handleChange = this.handleChange.bind(this);
-        this.handleSubmit = this.handleSubmit.bind(this);*/
-    }
-  /*  componentDidMount () {
-        if (typeof (this.props.location.state) === 'undefined') {
-            alert('Please Use Navigation Bar Links to access this page for Security Reasons')
-            this.props.history.push("/");
-        } else {
-            this.setState({login_status: this.props.location.state.login_status});
+            sports: [{
+                name: '',
+                category: ''
+            }]
         }
+        this.handleChange = this.handleChange.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
+        this.addSports = this.addSports.bind(this)
     }
 
     handleChange (e) {
-        this.setState({[e.target.id]: e.target.value});
+        if (e.target.name === 'sports_name') {
+            this.state.sports[e.target.id]['name'] = e.target.value
+            this.forceUpdate()
+        } else if (e.target.name === 'sports_cat') {
+            this.state.sports[e.target.id]['category'] = e.target.value
+            this.forceUpdate()
+        } else {
+            this.setState({[e.target.id]: e.target.value});
+        }
     }
-
 
     handleSubmit (e) {
         e.preventDefault()
-        this.setState({
-            login_msg: ''
-        })
-        if (e.target.id === 'login') {
-            console.log(this.state.username)
-            console.log(this.state.password)
+        // console.log(this.state)
 
-            
-            let check = false
-            /*
-            VERIFY
-            */
-          /*  if(this.state.username === 'admin' && this.state.password === '123') {
-                check = true
-            } 
-
-            if (!check) {
-                this.setState({
-                    login_msg: 'Invalid Username or Password, try again'
-                })
-            } else {
-                this.state.login_state_func('Logout', this.state.username);
-                this.setState({
-                    password: '',
-                    login_status: 'Logout'
-                });
-                this.props.history.push("/");
-            }
-        } else if (e.target.id === 'logout') {
-            this.state.login_state_func('Login', '');
-            this.setState({
-                password: '',
-                username: '',
-                login_status: 'Login'
-            })
-            this.props.history.push("/");
+        let param = {
+            name: this.state.ev_name,
+            "start_date": new Date(this.state.st_date),
+            "end_date": new Date(this.state.en_date),
+            "info": this.state.info,
+            "sports": this.state.sports
         }
 
-    } */
+        // console.log(param)
+
+
+        axios.post(ip, {params: param}).then((res)=> {
+            console.log("RESPONSE")
+            // console.log(res)
+            this.setState({msg: 'Success'})
+            setTimeout(
+                function() {
+                    this.setState({msg: ''});
+                }
+                .bind(this),
+                3000
+            );
+            this.setState({
+                ev_name: '',
+                st_date: '',
+                en_date: '',
+                info: '',
+                sports: [{
+                    name: '',
+                    category: ''
+                }]
+
+
+
+            })
+        }).catch((err)=> {
+            console.log("ERROR")
+            console.log(err.response)
+
+            this.setState({msg: `Error: ${err.response}`})
+
+
+
+        
+        })
+    }
+
+    addSports (e) {
+        e.preventDefault()
+        if (e.target.value === '+')
+        {
+            this.setState({
+                sports: [...this.state.sports, {name: '', category: ''}]
+            })
+        } else {
+            let index = this.state.sports.length - 1
+            if (index !== 0) {
+                this.setState({
+                    sports: this.state.sports.filter((_, i) => i !== index)
+                })
+            }
+        }
+    }
+
+
+
+
     render() {
-            return (
-                <div className="Create Event" style={{textAlign: 'center'}}>
-                    <form id='login' /*onSubmit={this.handleSubmit}*/>
+        return (
+            <div className='container' style={{textAlign: 'center',height:'100%', width:'100%', overflow:'hidden'}}>
+                <form id='create' onSubmit={this.handleSubmit}>
+                    <div style={{float:'left', width:'40%'}}>
+                        <label style={{width: '500px', height: '9px', display: 'block'}}></label><br/>
+                        
                         <label>Event Name:</label><br/>
-                        <input type='text' id='username' value={this.state.eventname} /*onChange={this.handleChange}*//><br/>
-                        <label>Start Date:</label><br/>
-                        <input type='password' id='password' value={this.state.startdate} /*onChange={this.handleChange}*//><br/><br/>
+                        <input type='text' id='ev_name' value={this.state.ev_name} onChange={this.handleChange}/><br/>
+                        
+                        <label>Starting Date:</label><br/>
+                        <input type='date' id='st_date' value={this.state.st_date} onChange={this.handleChange}/><br/>
+
+                        <label>Ending Date:</label><br/>
+                        <input type='date' id='en_date' value={this.state.en_date} onChange={this.handleChange}/><br/>
+
+                        <label>Description (Optional):</label><br/>
+                        <textarea rows='5' id='info' value={this.state.info} onChange={this.handleChange}/><br/>                    
+                        
+                        <br/>
+                    </div>
+
+                    <div style={{float:'left', width:'10%'}}>
+                        <label style={{display: 'block'}}>{this.state.msg}</label><br/>
+                        <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
                         <button>Create</button>
-                    </form>
-                </div>
-            )
+                    </div>
+                    <div style={{float:'left', width:'50%'}}>
+                        <label style={{width: '500px', height: '9px', display: 'block'}}></label><br/>
+
+                        <label>Sport(s):</label><br/>
+                        {this.state.sports.map((elem, ind) => {
+                            if (this.state.sports.length === ind+1) {
+                                return (
+                                    <div>
+                                        <input type='text' id={ind} name='sports_name' value={elem.name} onChange={this.handleChange} placeholder='Name'/><br/>
+                                        <input type='text' id={ind} name='sports_cat' value={elem.category} onChange={this.handleChange} placeholder='Category'/><br/>
+                                        <input type='button' style={{width: '25px'}} value='+' onClick={this.addSports}/>
+                                        <input type='button' style={{width: '25px'}} value='-' onClick={this.addSports}/>
+                                    </div>
+                                )                               
+                            } else {
+                                return (
+                                    <div>
+                                        <input type='text' id={ind} name='sports_name' value={elem.name} onChange={this.handleChange} placeholder='Name'/><br/>
+                                        <input type='text' id={ind} name='sports_cat' value={elem.category} onChange={this.handleChange} placeholder='Category'/><br/>
+                                        <br/>
+                                    </div>
+                                )
+                            }   
+                        })}
+                    </div>
+                </form>
+            </div>
+        )
     }
 }

@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-// import Popup from "reactjs-popup";
-import './App.css';
 
-import logo from './logo.png';
+import './App.css';
 
 import home from './components/home.component';
 import events from './components/events.component';
@@ -13,6 +11,8 @@ import matches from './components/matches.component';
 import aboutus from './components/aboutus.component';
 import Login from './components/login.component';
 
+// import logo from `${process.env.PUBLIC_URL}+/logo.png`;
+const logo = process.env.PUBLIC_URL+'./logo.png'
 
 class App extends Component {
   constructor(props) {
@@ -80,7 +80,6 @@ class App extends Component {
           <Route path='/matches' component={matches}/>
           <Route path='/aboutus' component={aboutus}/>
           <Route path='/login' render={(props) => <Login {...props} login_button={this.login_button}/>}/>
-          
         </div>
       </Router>
     );
