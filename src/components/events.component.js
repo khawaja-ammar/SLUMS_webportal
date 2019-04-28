@@ -33,8 +33,8 @@ export default class events extends Component {
     }
 
     render() {
-        // if (this.state.logged_in === 'Login') 
-        if (0)
+        // if (0)
+        if (this.state.logged_in === 'Login') 
         {
             return (
                 <Router>
