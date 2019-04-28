@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 const axios = require('axios')
 
-const ip = 'http://localhost:8080/api/events'
+// const ip = 'http://localhost:8080/api/events'
+const ip = process.env.ip
+
 
 export default class adm_create_ev extends Component {
     constructor(props) {
