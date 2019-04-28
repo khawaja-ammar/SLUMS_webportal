@@ -48,9 +48,10 @@ router.post('/:id', (req,res) => {
 
 			})
 			event.sports.push(newsport)
-			res.json(newsport)
-			event.save()
-
+			event
+			.save()
+			.then(s => res.send(s))
+			.catch(err => res.status(400).send(err))
 	
 
 			
@@ -82,9 +83,10 @@ router.put('/:id/:sportid', (req, res) => {
 					if(req.body.params.matches){
 						sport.matches = req.body.params.matches
 					}
-					event.save()
-					res.send(sport)
-					
+					event
+					.save()
+					.then(sport => res.send(sport))
+					.catch(err => res.status(400).send(err))
 					return
 					
 				}
@@ -109,7 +111,8 @@ router.delete('/:id/:sportid', (req,res) => {
 				event.sports.splice(event.sports.findIndex(e => e._id === req.params.sportid),1)
 				event.
 				save()
-				res.send(event)
+				.then(event => res.send(event))
+				.catch(err => res.status(400).send(err))
 		}
 	})
 	

@@ -17,8 +17,6 @@ router.get('/:id?', (req, res) => {
 
 	const name = req.params.id
 	if(name){
-		// does event exist?
-		// if so fetch and send
 		event.findOne({name}).then( event => {
 			if(!event){
 				return res.status(400).json({namenotfound: "No event found by that name!", name})
@@ -33,7 +31,9 @@ router.get('/:id?', (req, res) => {
 		//no params so get all events
 		event.find({}, (err, events) => {
 
-			
+			if(err){
+				return res.status(400).send(err)
+			}
 			events.forEach( ev => {
 				Usermap[ev.name] = ev
 			})
@@ -51,16 +51,16 @@ router.get('/:id?', (req, res) => {
 router.post('/', (req,res) => {
 
 		const newEvent = new event({
-			name : req.body.name,
-			start_date : req.body.start_date,
-			end_date : req.body.end_date,
-			info : 	req.body.info,
-			sports : req.body.sports
+			name : req.body.params.name,
+			start_date : req.body.params.start_date,
+			end_date : req.body.params.end_date,
+			info : 	req.body.params.info,
+			sports : req.body.params.sports
 			})
 	newEvent
 		.save()
 		.then( event => res.json(event))
-		.catch( err => console.log(err))
+		.catch( err => res.status(400).send(err))
 
 	
 })
@@ -68,9 +68,9 @@ router.post('/', (req,res) => {
 //modify should be able to modify only events , if modification is of sports or matches then call next middleware function
 router.put('/:id', (req, res) => {
 	const name = req.params.id
-	event.findOneAndUpdate({name}, req.body, (err, doc) => {
+	event.findOneAndUpdate({name}, req.body.params, (err, doc) => {
 		if(err){
-			return res.status(500).json('error occured')
+			return res.status(400).send('error occured')
 		}
 		res.send('success!')
 	})
@@ -82,7 +82,7 @@ router.delete('/:id', (req,res) => {
 	const name = req.params.id
 	event.findOneAndRemove({name}, (err,doc) => {
 		if(err){
-			return res.status(500).json('Error')
+			return res.status(400).send('Error')
 		}
 		res.send('Success!')
 

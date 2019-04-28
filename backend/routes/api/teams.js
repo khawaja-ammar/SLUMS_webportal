@@ -10,6 +10,9 @@ router.get('/:id/:sportid?', (req,res) => {
 	if(req.params.sportid){
 		const id = req.params.sportid
 		team.find({sportsID:id}, (err,teams) => {
+			if(err){
+				return res.status(400).send(err)
+			}
 			teams.forEach( temp => {
 				teamList.push(temp)
 			})
@@ -19,6 +22,9 @@ router.get('/:id/:sportid?', (req,res) => {
 	else{
 		const id = req.params.id
 		team.find({eventName:id}, (err,teams) => {
+			if(err){
+				return res.status(400).send(err)
+			}
 			teams.forEach( temp => {
 				teamList.push(temp)
 			})
@@ -37,7 +43,7 @@ router.post('/', (req,res) =>{
 	newTeam
 	.save()
 	.then(Team => res.send(Team))
-	.catch(err => res.send(err))
+	.catch(err => res.status(400).send(err))
 
 })
 
@@ -46,7 +52,7 @@ router.put('/:id', (req,res) =>{
 	const name = req.params.id
 	team.findOneAndUpdate({_id:name}, req.body.params, (err, doc) => {
 		if(err){
-			return res.status(500).json('error occured')
+			return res.status(400).json('error occured')
 		}
 		res.send('success!')
 	})
@@ -58,7 +64,7 @@ router.delete('/:id', (req,res) =>{
 	const name = req.params.id
 	team.findOneAndRemove({_id:name}, (err,doc) => {
 		if(err){
-			return res.status(500).json('Error')
+			return res.status(400).json('Error')
 		}
 		res.send('Success!')
 

@@ -72,8 +72,10 @@ router.put('/:id/:sportid', (req, res) => {
 				return res.status(400).json({sportnotfound:"No sport of this id ",sportid})
 			}
 
-		event.save()
-
+		event
+		.save()
+		.then(o => res.send(o))
+		.catch(err => res.status(400).send(err))
 	})
 
 }),
