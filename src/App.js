@@ -11,8 +11,8 @@ import matches from './components/matches.component';
 import aboutus from './components/aboutus.component';
 import Login from './components/login.component';
 
-// import logo from `${process.env.PUBLIC_URL}+/logo.png`;
-const logo = process.env.PUBLIC_URL+'./logo.png'
+import logo from './logo.png';
+// const logo = process.env.PUBLIC_URL+'./logo.png'
 
 class App extends Component {
   constructor(props) {
