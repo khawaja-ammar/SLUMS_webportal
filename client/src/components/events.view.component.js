@@ -31,8 +31,9 @@ export default class view_events extends Component {
             this.forceUpdate()
 
         }).catch((err)=> {
+            console.log(process.env.ip)
             console.log("Error")
-            console.log(err.response)
+            console.log(err)
         })
     }
 
