@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 
 
@@ -26,7 +25,7 @@ export default class events extends Component {
     }
     componentDidMount () {
         if (typeof (this.props.location.state) === 'undefined') {
-            alert('Please Use Navigation Bar Links to access this page for Security Reasons')
+            // alert('Please Use Navigation Bar Links to access this page for Security Reasons')
             this.props.history.push("/");
         } else {
             this.setState({logged_in: this.props.location.state.login_status});
@@ -34,24 +33,29 @@ export default class events extends Component {
     }
 
     render() {
-        if (this.state.logged_in === 'Login') 
+        // if (this.state.logged_in === 'Login') 
+        if (0)
         {
             return (
                 <Router>
                     <div className='container' style={{height:'100%', width:'100%', overflow:'hidden'}}>
-                        <div id='event-nav' style={{float:'left', width:'20%', height:'100%'}}>
+                        <div id='event-nav' style={{float:'left', width:'18%', height:'100%'}}>
                             <nav className='navbar navbar-expand-lg navbar-light'>
-                                {/* <div className='collapse navbar-collapse'> */}
                                 <ul className='navbar-nav nav-pills flex-column'>
                                     <li className='navbar-item'><Link to='/events/view' className='nav-link'>View All Events</Link></li>
                                     <li className='navbar-item'><Link to='/events/scores' className='nav-link'>View Scores</Link></li>
                                     <li className='navbar-item'><Link to='/events/upcoming' className='nav-link'>Upcoming Events</Link></li>
                                     <li className='navbar-item'><Link to='/events/register' className='nav-link'>Register for Event</Link></li>
+                                    <span style={{height: '300px'}}></span>
                                 </ul>
-                                {/* </div> */}
                             </nav> 
                         </div>
-                        <div stlye={{float:'left', width:'80%', height:'100%'}}><br/>
+
+                        <div style={{float:'left', width:'2%', height:'100%'}}>
+                            <span style={{height: '700px', display: 'block'}}></span>
+                        </div>
+
+                        <div style={{float:'left', width:'80%', height:'100%'}}><br/>
                             <Route path='/events/view' component={view_Events}/>
                             <Route path='/events/scores' component={pla_view_scores}/>
                             <Route path='/events/upcoming' component={pla_view_upcoming}/>
@@ -65,21 +69,25 @@ export default class events extends Component {
         {
             return (
                 <Router>
-                    <div className='container' style={{height:'100%', width:'100%', overflow:'hidden'}}>
-                        <div id='event-nav' style={{float:'left', width:'20%'}}>
+                    <div className='container' style={{height:'100%', width:'100%', overflow:'hidden', display:'block'}}>
+                        <div id='event-nav' style={{float:'left', width:'18%'}}>
                             <nav className='navbar navbar-expand-lg navbar-light'>
-                                {/* <div className='collapse navbar-collapse'> */}
                                 <ul className='navbar-nav nav-pills flex-column'>
                                     <li className='navbar-item'><Link to='/events/view' className='nav-link'>View All Events</Link></li>
                                     <li className='navbar-item'><Link to='/events/create_event' className='nav-link'>Create Event</Link></li>
                                     <li className='navbar-item'><Link to='/events/modify_event' className='nav-link'>Modify/Delete Event</Link></li>
                                     <li className='navbar-item'><Link to='/events/update_scores' className='nav-link'>Update Match Score</Link></li>
                                     <li className='navbar-item'><Link to='/events/register_teams' className='nav-link'>Register Teams</Link></li>
+                                    <span style={{height: '300px'}}></span>
                                 </ul>
-                                {/* </div> */}
                             </nav> 
                         </div>
-                        <div stlye={{float:'left', width:'80%'}}><br/>
+
+                        <div style={{float:'left', width:'2%', height:'100%'}}>
+                            <span style={{height: '700px', display: 'block'}}></span>
+                        </div>
+
+                        <div style={{float:'left', width:'80%'}}><br/>
                             <Route path='/events/view' component={view_Events}/>
                             <Route path='/events/create_event' component={adm_create_ev}/>
                             <Route path='/events/modify_event' component={adm_upd_ev}/>
