@@ -14,7 +14,7 @@ const event = require("../../models/events")
 // default should be ongoing event...... modify
 //currently gets all events
 router.get('/:id?', (req, res) => {
-
+	console.log('WTH')
 	const name = req.params.id
 	if(name){
 		event.findOne({name}).then( event => {
