@@ -1,7 +1,13 @@
 import React, { Component } from 'react';
 const axios = require('axios')
+require('dotenv').config()
 
-const ip = process.env.ip
+let ip = '' 
+if (process.env.ip) {
+    ip = process.env.ip 
+} else {
+    ip = 'http://localhost:8080/api/events'
+}
 
 
 export default class view_events extends Component {
