@@ -13,10 +13,7 @@ router.get('/:id/:sportid?', (req,res) => {
 			if(err){
 				return res.status(400).send(err)
 			}
-			teams.forEach( temp => {
-				teamList.push(temp)
-			})
-			res.send(teamList)
+			res.send(teams)
 		})
 	}
 	else{
