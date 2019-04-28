@@ -12,6 +12,7 @@
   "dependencies": {
     "body-parse": "^0.1.0",
     "cors": "^2.8.5",
+    "dotenv": "^7.0.0",
     "mongodb": "^3.2.3",
     "mongoose": "^5.5.1",
     "nodemon": "^1.18.11"
