@@ -10,6 +10,7 @@
     "concurrently": "^4.1.0",
     "cors": "^2.8.5",
     "dotenv": "^7.0.0",
+    "eject": "react-scripts eject",
     "express": "^4.16.4",
     "is-empty": "^1.2.0",
     "jsonwebtoken": "^8.5.1",
@@ -26,9 +27,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "validator": "^10.11.0"
   },
   "keywords": [],
   "author": "",

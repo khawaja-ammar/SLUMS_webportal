@@ -1,10 +1,12 @@
 const express = require('express')
 const app = express()
 const mongoose = require('mongoose')
-
+const cors = require('cors')
 //Bodyparser Middleware
 app.use(express.json())
 app.use(express.urlencoded({extended:false}))
+
+app.use(cors())
 
 // DB
 const db = require('./keys/keys').mongoURI
@@ -20,6 +22,8 @@ app.use("/api/events", require("./routes/api/events")) // get events
 app.use("/api/sports", require("./routes/api/sports"))
 
 app.use("/api/match", require("./routes/api/match"))
+
+app.use("/api/teams", require("./routes/api/teams"))
 
 
 const PORT = 5000;
