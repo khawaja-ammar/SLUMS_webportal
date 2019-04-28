@@ -25,6 +25,8 @@ app.use("/api/match", require("./routes/api/match"))
 
 app.use("/api/teams", require("./routes/api/teams"))
 
+app.use("/api/scheduler", require("./routes/api/scheduler"))
+
 
 const PORT = 5000;
 app.listen(PORT, () => console.log('connected!'))

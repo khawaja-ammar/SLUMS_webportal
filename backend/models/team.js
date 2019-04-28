@@ -32,4 +32,4 @@ const teamSchema = new Schema({
 	}
 })
 
-module.exports = User = mongoose.model("teams", teamSchema)
+module.exports = User = mongoose.model("team", teamSchema)
