@@ -79,7 +79,7 @@ const eventSchema = new Schema({
 	},
 	sports : {
 		type : [sportsSchema],
-		default : undefined,
+		default : [],
 		required : true
 	}
 

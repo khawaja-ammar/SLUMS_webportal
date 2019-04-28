@@ -3,30 +3,33 @@ const Schema = mongoose.Schema
 
 const teamSchema = new Schema({
 
-	teamID : {
-		type : Number,
-		required : true
-	},
 
 	name :{
 		type : String,
 		required : true
 
 	},
+	eventName : {
+		type: String,
+		required : true
+	},
 	sportsID:{
 
-		type: Number,
+		type: String,
 		required : true
-
 	},
 	status: {
 		type : String,
-		default: Beginner
+		default: "Beginner"
 	},
 	points: {
 		type : Number,
 		default : 0
+	},
+	matchScheduled : {
+		type: Boolean,
+		default : false
 	}
 })
 
-module.exports = User = mongoose.model("teams", TeamSchema)
+module.exports = User = mongoose.model("teams", teamSchema)

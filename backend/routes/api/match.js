@@ -25,7 +25,7 @@ router.post('/:id/:sportid', (req,res) => {
 				if(sport._id == sportid){
 					//insert all matches =>
 					sportfound = true
-					req.body.matches.forEach( mtch => {
+					req.body.params.matches.forEach( mtch => {
 						const newmatch = new match({
 							team1ID : mtch.team1ID,
 							team2ID : mtch.team2ID,
@@ -62,7 +62,7 @@ router.put('/:id/:sportid', (req, res) => {
 		event.sports.find( sport => {
 			if(sport._id == sportid){
 				sportfound = true
-				const matchesToAdd = req.body.matches
+				const matchesToAdd = req.body.params.matches
 				var newMatches = matchesToAdd.map( obj => sport.matches.find( o => o._id === obj._id) || obj)
 				sport.matches = b
 				res.send("Success")
