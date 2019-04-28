@@ -3,12 +3,14 @@ const axios = require('axios')
 require('dotenv').config()
 
 
-let ip = '' 
-if (process.env.ip) {
-    ip = process.env.ip 
-} else {
-    ip = 'http://localhost:8080/api/events'
-}
+// let ip = '' 
+// if (process.env.ip) {
+//     ip = process.env.ip 
+// } else {
+//     ip = 'http://localhost:8080/api/events'
+// }
+const ip = '/api/events'
+
 
 
 export default class adm_create_ev extends Component {

@@ -2,13 +2,13 @@ import React, { Component } from 'react';
 const axios = require('axios')
 require('dotenv').config()
 
-let ip = '' 
-if (process.env.ip) {
-    ip = process.env.ip 
-} else {
-    ip = 'http://localhost:8080/api/events'
-}
-
+// let ip = '' 
+// if (process.env.ip) {
+//     ip = process.env.ip 
+// } else {
+//     ip = 'http://localhost:8080/api/events'
+// }
+const ip = '/api/events'
 
 export default class view_events extends Component {
     constructor(props) {
@@ -22,6 +22,7 @@ export default class view_events extends Component {
         this.getData()
     }
     getData () {
+        console.log(process.env.IP)
         axios.get(ip).then((res) => {
             console.log("RESPONSE")
             
@@ -37,7 +38,6 @@ export default class view_events extends Component {
             this.forceUpdate()
 
         }).catch((err)=> {
-            console.log(process.env.ip)
             console.log("Error")
             console.log(err)
         })
