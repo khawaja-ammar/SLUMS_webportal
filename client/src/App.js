@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import Navbar from 'react-bootstrap/Navbar'
+import Nav from 'react-bootstrap/Nav'
+
 
 import './App.css';
 
@@ -12,7 +15,6 @@ import aboutus from './components/aboutus.component';
 import Login from './components/login.component';
 
 import logo from './logo.png';
-// const logo = process.env.PUBLIC_URL+'./logo.png'
 
 class App extends Component {
   constructor(props) {
@@ -43,35 +45,28 @@ class App extends Component {
       <Router>
         <div className="container">
 
-          <nav id='main_nav' className='navbar navbar-expand-lg navbar-light' >
-            <a className='navbar-brand'>
+          <Navbar id='main_nav' expand='lg'>
+            <Navbar.Brand>
               <img src={logo} width='80' height='116' alt=''/>
-            </a>
-            {/* <div className='collapse navbar-collapse'> */}
-              <ul className='navbar-nav mr-auto'>
-                <li className='navbar-item'><Link to='/' className='nav-link'>Home</Link></li>
-                {/* <li className='navbar-item'><Link to='/events' className='nav-link'>Events</Link></li> */}
-                <li className='navbar-item'>
-                  <Link to={{pathname:'/events', state: {login_status: this.state.login_status}}} className='nav-link'>Events</Link>
-                </li>
-                <li className='navbar-item'><Link to='/sports' className='nav-link'>Sports</Link></li>
-                <li className='navbar-item'><Link to='/matches' className='nav-link'>Matches</Link></li>
-                <li className='navbar-item'><Link to='/aboutus' className='nav-link'>About Us</Link></li>
-              </ul>
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls='basic-navbar-nav'/>
+            <Navbar.Collapse id='basic-navbar-nav'>
 
-              <ul className='navbar-nav navbar-right'>
-                <li>
-                  <label className='navbar-brand'>{this.state.username}</label>
-                </li>
-                <li className='navbar-item active'>
-                  <Link to={{pathname:'/login', state: {login_status: this.state.login_status}}} className='nav-link'>{this.state.login_status}</Link>
-                </li>
-              </ul>
-            {/* </div> */}
-          </nav>
-
-          {/* <label>HIIII</label> */}
-
+              <Nav fill className='mr-auto'>
+                <Nav.Item><Link to='/' className='nav-link'>Home</Link></Nav.Item>
+                <Nav.Item><Link to={{pathname:'/events', state: {login_status: this.state.login_status}}} className='nav-link'>Events</Link></Nav.Item>
+                <Nav.Item><Link to='/sports' className='nav-link'>Sports</Link></Nav.Item>
+                <Nav.Item><Link to='/matches' className='nav-link'>Matches</Link></Nav.Item>
+                <Nav.Item><Link to='/aboutus' className='nav-link'>About Us</Link></Nav.Item>
+              </Nav>
+              
+              <Nav fill className='navbar-right'>
+                <Nav.Item><Navbar.Brand>{this.state.username}</Navbar.Brand></Nav.Item>
+                <Nav.Item className='active'><Link to={{pathname:'/login', state: {login_status: this.state.login_status}}} className='nav-link'>{this.state.login_status}</Link></Nav.Item>
+              </Nav>
+              
+            </Navbar.Collapse>
+          </Navbar>
 
 
           <Route path='/' exact component={home}/>

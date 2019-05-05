@@ -1,13 +1,7 @@
 import React, { Component } from 'react';
-const axios = require('axios')
-require('dotenv').config()
+import Table from 'react-bootstrap/Table'
 
-// let ip = '' 
-// if (process.env.ip) {
-//     ip = process.env.ip 
-// } else {
-//     ip = 'http://localhost:8080/api/events'
-// }
+const axios = require('axios')
 const ip = '/api/events'
 
 export default class view_events extends Component {
@@ -16,13 +10,12 @@ export default class view_events extends Component {
         this.state = {
             events: [],
             expandedEvents: [],
-            expandedSports: {}
+            expandedSports: []
         }
         this.getData = this.getData.bind(this)
         this.getData()
     }
     getData () {
-        console.log(process.env.IP)
         axios.get(ip).then((res) => {
             console.log("RESPONSE")
             
@@ -53,124 +46,39 @@ export default class view_events extends Component {
         return ind > -1
     }
 
-    // expandedStateSport = (event, sport) => {
+    expandedStateSport = (sport) => {
+        let ind = this.state.expandedSports.findIndex(
+            (name) => {
+                    return name === sport._id
+            }
+        )
+        return ind > -1
+    }
 
-    //     if (event in this.state.expandedSports) {
-            
+    expandSport = (sport) => {
+        let newRows = [...this.state.expandedSports]
+        let ind = newRows.findIndex((id) => {
+            return id === sport._id
+        })
 
-    //         let ind = this.state.expandedSports[event].findIndex(
-    //             (name) => {
-    //                 return name === sport
-    //             }
-    //         )
-    //         // if (sport in this.state.expandedSports[event]){
-    //         // console.log('true2')
+        if (ind > -1) {
+            newRows.splice(ind, 1)
+        }
+        else {
+            newRows.push(sport._id)
+        }
 
-    //         //     return 1
-    //         // }
-    //         console.log(ind > -1)
+        this.setState({
+            expandedSports: [...newRows]
+        })
+    }
 
-    //         return ind > -1
-
-    //     }
-    //     console.log(0)
-    //     return 0
-
-
-    //     // console.log(event)
-    //     // let j = -1
-    //     // let i = this.state.expandedSports.findIndex(
-    //     //     (name) => {
-    //     //         if (name === event) {
-    //     //             j = this.state.expandSport[i].findIndex(
-    //     //                 (spr) => {
-    //     //                     return spr === sport
-    //     //                 }
-    //     //             )
-    //     //         }
-    //     //     }
-    //     // )
-    //     // if (i > -1 && j > -1){
-    //     //     return 1
-    //     // }
-    //     // else {
-    //     //     return 0
-    //     // }
-    // }
-
-    // expandSport = (event, sport) => {
-    //     // console.log(event)
-    //     // console.log(sport)
-    //     let newRows = this.state.expandedSports
-
-    //     if (this.expandedStateSport(event, sport)) {
-    //         console.log("ADDEDDDDDDDDDDDDDDDD")
-    //         let index = this.state.expandedSports[event].findIndex((id) => {
-    //             return id === sport
-    //         })
-    //         this.state.expandedSports[event].splice(index, 1)
-    //     } else {
-    //         if (event in this.state.expandedSports) {
-    //             if (!(sport in this.state.expandedSports[event])) {
-    //                 this.state.expandedSports[event].push(sport)
-    //             }
-    //         } else {
-    //             this.state.expandedSports[event] = []
-    //         }
-    //     }
-
-
-
-    //     // console.log(ind)
-
-    //     // let ind2 = -1
-    //     // if (ind > -1) {
-    //     //     ind2 = newRows[event].findIndex((id) => {
-    //     //         return id === sport
-    //     //     })
-    //     //     if (ind2 > -1) {
-    //     //         newRows[event].splice(ind2,1)
-    //     //     } else {
-    //     //         newRows[event].push(sport)
-    //     //     }
-    //     // } else {
-    //     //     newRows.push({
-    //     //         event: []
-    //     //     })
-    //     // }
-
-
-
-        
-
-
-    //     // if (ind > - 1) {
-    //     //     newRows.splice(ind, 1)
-    //     // } else if (ind2 > -1) {
-    //     //     newRows[ind].splice(ind2, 1)
-    //     // } else {
-    //     //     newRows[ind].push(sport.name)
-    //     // }
-
-    //     // this.setState({
-    //     //     expandedSports: [...newRows]
-    //     // })
-    //     this.forceUpdate()
-    //     console.log('this is the state')
-    //     console.log(this.state.expandedSports)
-    // }
 
     expandEvent = (event) => {
-
-        // console.log("EXPAND")
-        // console.log(event.name)
-
         let newRows = [...this.state.expandedEvents]
         let ind = newRows.findIndex((id) => {
             return id === event.name
         })
-
-        // console.log(ind)
 
         if (ind > -1) {
             newRows.splice(ind, 1)
@@ -182,22 +90,34 @@ export default class view_events extends Component {
         this.setState({
             expandedEvents: [...newRows]
         })
-
-        // console.log(this.state.expandedEvents)
     }
 
-    getSportsRows = (event, sport) => {
-        // console.log('yes')
-        console.log(event)
+    getMatchRows = (match, i) => {
+        return (
+            <tr>
+                <td></td>
+                <td></td>
+                <td>{i}</td>
+                <td>{match.team1ID}</td>
+                <td>{match.team2ID}</td>
+                <td>{match.winner}</td>
+                <td>{match.score}</td>
+                <td>{match.location}</td>
+                <td>{(match.date).toString().substring(0, 10)}</td>
+            </tr>
+        )
+    }
+
+    getSportsRows = (sport) => {
         let rows = []
         
-            {/* <tr onClick={()=>this.expandSport(event, sport.name)}> */}
         const row = (
-            <tr>
+            <tr onClick={()=>this.expandSport(sport)}>
+                <td></td>
                 <td>
-                    {/* <button>
-                        {this.expandedStateSport(event, sport.name) ? '-': '+'}
-                    </button> */}
+                    <button style={{width: '25px'}}>
+                        {this.expandedStateSport(sport) ? '-': '+'}
+                    </button>
                 </td>
                 <td>{sport.name}</td>
                 <td>{sport.category}</td>
@@ -206,12 +126,52 @@ export default class view_events extends Component {
 
         rows.push(row)
         
-        // if (this.expandedStateSport(event, sport)) {
-
-        // }
-
-
-
+        if (this.expandedStateSport(sport)) {
+            if (sport.matches && sport.matches.length > 0) {
+                let i = 0
+                const match_row = sport.matches.map((match) => {
+                    i += 1
+                    return this.getMatchRows(match, i)
+                })
+    
+                const detail_1 = (
+                    <tr>
+                        <td className='sports_details' colSpan='5'>
+                            <Table borderless size='sm' className='tab-sports' >
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th>#</th>
+                                        <th>Team 1 ID</th>
+                                        <th>Team 2 ID</th>
+                                        <th>Winner</th>
+                                        <th>Score</th>
+                                        <th>Location</th>
+                                        <th>Date</th>
+                                    </tr>
+                                </thead> 
+                                <tbody>
+                                    {match_row}
+                                </tbody>
+                            </Table>
+                        </td>
+                    </tr>
+                )
+                rows.push(detail_1);
+            } else {
+                rows.push(
+                    <tr>
+                        <td colSpan='5'>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>No Matches</th>
+                        </td>
+                    </tr>
+                )
+            }
+        }
         return rows;
     }
 
@@ -222,7 +182,7 @@ export default class view_events extends Component {
         const row = (
             <tr onClick={()=>this.expandEvent(event)}>
                 <td>
-                    <button>
+                    <button style={{width: '25px'}}>
                         {this.expandedStateEvent(event) ? '-' : '+'}
                     </button>
                 </td>
@@ -236,48 +196,41 @@ export default class view_events extends Component {
         rows.push(row)
 
         if (this.expandedStateEvent(event)) {
-            const sports_row = event.sports.map((sport) => {
-                return this.getSportsRows(event.name, sport)
-            })
-
-            const detail_1 = (
-                <tr>
-                    <td className='sports_details' colSpan='5'>
-                        <br/>
-                        <table className='tab-sports' style={{width: '100%'}}> 
-                        <tr>
-                            <th>
-                                {/* <span>Sports</span> */}
-                            </th>
-                            <th>Sports Name</th>
-                            <th>Sports Category</th>
-                        </tr>
-                        {sports_row}    
-                        </table>
-
-
-
-                        {/* {event.sports.map((sport, ind) => {
-
-                            const sport_row =
-
-
-
-                            return (
-                                
-                                
-                            )
-
-                            
-
-
-                            
-                        })} */}
-                        <br/>
-                    </td>
-                </tr>
-            )
-            rows.push(detail_1);
+            if (event.sports && event.sports.length > 0) {
+                
+                const sports_row = event.sports.map((sport) => {
+                    return this.getSportsRows(sport)
+                })
+    
+                const detail_1 = (
+                    <tr>
+                        <td className='sports_details' colSpan='5'>
+                            <Table borderless size='sm' className='tab-sports' >
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>{/* <span>Matches</span> */}</th>
+                                        <th>Sports Name</th>
+                                        <th>Sports Category</th>
+                                    </tr>
+                                </thead> 
+                                <tbody>
+                                    {sports_row}
+                                </tbody>
+                            </Table>
+                        </td>
+                    </tr>
+                )
+                rows.push(detail_1);
+            } else {
+                rows.push(
+                    <tr>
+                        <td colSpan='5'>
+                            <div>No Matches</div>
+                        </td>
+                    </tr>
+                )
+            }
         }
         return rows;
     }
@@ -288,18 +241,20 @@ export default class view_events extends Component {
             return this.getEventRows(event);
         })
         return (
-            <table className='tab' style={{width: '100%'}}> 
-                <tr>
-                    <th>
-                        {/* <span>Sports</span> */}
-                    </th>
-                    <th>Name</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Info</th>
-                </tr>
-                {event_rows}    
-            </table>
+            <Table className='tab' style={{width: '100%'}}>
+                <thead> 
+                    <tr>
+                        <th>{/* <span>Sports</span> */}</th>
+                        <th>Name</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Info</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {event_rows}    
+                </tbody>
+            </Table>
         )
     }
 
@@ -316,7 +271,6 @@ export default class view_events extends Component {
                 <div >
                     {this.getTable()}
                 </div>
-                
             )
         }
     }

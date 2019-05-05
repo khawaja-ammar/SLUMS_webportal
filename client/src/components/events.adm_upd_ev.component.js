@@ -1,79 +1,55 @@
 import React, { Component } from 'react';
 const axios = require('axios')
-require('dotenv').config()
 
-
-// let ip = '' 
-// if (process.env.ip) {
-//     ip = process.env.ip 
-// } else {
-//     ip = 'http://localhost:8080/api/events'
-// }
 const ip = '/api/events'
-
 
 export default class adm_upd_ev extends Component {
 	constructor(props) {
         super(props)
         this.state = {
-            msg: '',
-            ev_name: '',
-            st_date: '',
-            en_date: '',
-            info: '',
-            sports: [{
-                name: '',
-                category: ''
-            }]
+            search: ''            
         }
         this.handleChange = this.handleChange.bind(this)
-        this.fetchEvent = this.fetchEvent.bind(this)
-        /*this.addSports = this.addSports.bind(this)*/
+        this.searcher = this.searcher.bind(this)
     }
 
     handleChange (e) {
-        if (e.target.name === 'search') {
-            this.state.ev_name = e.target.value
-            this.forceUpdate()
-        }
-        
+        this.setState({[e.target.id]: e.target.value});
+        console.log(this.state)
     }
 
-    fetchEvent (e) {
-        if (e.target.value === 'search') {
-            this.state.ev_name = e.target.value
-            this.forceUpdate()
+    searcher(e) {
+        e.preventDefault()
+  
+        const param = {
+            id: this.state.search
         }
-       /* let param = {
-            name: this.state.ev_name,
-            "start_date": '',
-            "end_date": '',
-            "info": '',
-            "sports": ''
-        }*/
-        axios.get(ip).then((res) => {
-        	console.log("RESPONSE")
-             console.log(res.data)
-            this.setState({msg: 'Success'})
-            setTimeout(
-                function() {
-                    this.setState({msg: ''});
-                }
-                .bind(this),
-                3000
-            );
+        axios.get(ip, {params: param}).then((res) => {
+            // console.log(param)
+            console.log('Response')
+
+            console.log(res)
+            console.log(res.data)
+
+        }).catch((err) => {
+            console.log("error")
+            console.log(err.response)
 
         })
-
-        
     }
+
+
     
     render() {
         return (
-            <div className="search-container">
-		      <input type="text" placeholder="Search an event to modify/delete" value = {this.ev_name} name="search" onChange={this.handleChange}/>
-		      <button type="submit" value = "Search" onClick={this.fetchEvent} ><i class="fa fa-search"></i></button>
-			  </div>
+            <div className='container' style={{textAlign: 'center',height:'100%', width:'100%', overflow:'hidden'}}>
+                <form onSubmit={this.searcher}>
+                    Enter Event Name to Modify/Delete: 
+                    <input type='text' id='search' value={this.state.search} onChange={this.handleChange}/><br/>
+                    <button>Search</button>
+
+                </form>
+            </div>
 		 
         )
     }

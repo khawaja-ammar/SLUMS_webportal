@@ -32,7 +32,7 @@ export default class home extends Component {
                         return (
                             <div className="each-slide">
                                 <div style={{'backgroundImage': `url(${i})`}}>
-                                    <span>Slide {ind + 1}</span>
+                                    {/* <span>Slide {ind + 1}</span> */}
                                 </div>
                             </div>
                         )
