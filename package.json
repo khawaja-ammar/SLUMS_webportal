@@ -1,48 +1,24 @@
 {
-  "name": "se-app",
-  "version": "0.1.0",
-  "private": true,
-  "dependencies": {
-    "axios": "^0.18.0",
-    "bcrypt": "^3.0.5",
-    "bcryptjs": "^2.4.3",
-    "body-parser": "^1.18.3",
-    "bootstrap": "^4.3.1",
-    "botstrap": "^0.20.1",
-    "concurrently": "^4.1.0",
-    "cors": "^2.8.5",
-    "dotenv": "^7.0.0",
-    "eject": "react-scripts eject",
-    "express": "^4.16.4",
-    "is-empty": "^1.2.0",
-    "jsonwebtoken": "^8.5.1",
-    "mongodb": "^3.2.3",
-    "mongoose": "^5.5.1",
-    "nodemon": "^1.18.11",
-    "passport": "^0.4.0",
-    "passport-jwt": "^4.0.0",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "react-router-dom": "^5.0.0",
-    "react-scripts": "^3.0.0",
-    "react-slideshow-image": "^1.1.5",
-    "validator": "^10.11.0"
-  },
+  "name": "localrep",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
   "scripts": {
-    "start": "react-scripts start",
-    "test": "react-scripts test",
-    "validator": "^10.11.0"
+    "start": "node server.js",
+    "heroku-postbuild": "cd client && npm install --only=dev && npm install && npm run build"
   },
-  "keywords": [],
   "author": "",
   "license": "ISC",
-  "eslintConfig": {
-    "extends": "react-app"
+  "dependencies": {
+    "body-parse": "^0.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^7.0.0",
+    "express": "^4.16.4",
+    "mongodb": "^3.2.3",
+    "mongoose": "^5.5.1",
+    "nodemon": "^1.18.11"
   },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ]
+  "engines": {
+    "node": "10.15.3"
+  }
 }

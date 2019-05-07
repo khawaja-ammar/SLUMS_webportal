@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { Nav } from 'react-bootstrap'
+
 
 
 import view_Events from './events.view.component';
@@ -33,26 +35,25 @@ export default class events extends Component {
     }
 
     render() {
-        // if (0)
-        if (this.state.logged_in === 'Login') 
+        if (0)
+        // if (this.state.logged_in === 'Login') 
         {
             return (
                 <Router>
                     <div className='container' style={{height:'100%', width:'100%', overflow:'hidden'}}>
-                        <div id='event-nav' style={{float:'left', width:'18%', height:'100%'}}>
-                            <nav className='navbar navbar-expand-lg navbar-light'>
-                                <ul className='navbar-nav nav-pills flex-column'>
-                                    <li className='navbar-item'><Link to='/events/view' className='nav-link'>View All Events</Link></li>
-                                    <li className='navbar-item'><Link to='/events/scores' className='nav-link'>View Scores</Link></li>
-                                    <li className='navbar-item'><Link to='/events/upcoming' className='nav-link'>Upcoming Events</Link></li>
-                                    <li className='navbar-item'><Link to='/events/register' className='nav-link'>Register for Event</Link></li>
-                                    <span style={{height: '300px'}}></span>
-                                </ul>
-                            </nav> 
+                        <div id='event-nav' style={{float:'left'}}>
+
+                            <Nav fill className='flex-column'>
+                                <Nav.Item><Link to='/events/view' className='nav-link'>View All Events</Link></Nav.Item>
+                                <Nav.Item><Link to='/events/scores' className='nav-link'>View Scores</Link></Nav.Item>
+                                <Nav.Item><Link to='/events/upcoming' className='nav-link'>Upcoming Events</Link></Nav.Item>
+                                <Nav.Item><Link to='/events/register' className='nav-link'>Register for Event</Link></Nav.Item>                                
+                            </Nav>
+
                         </div>
 
-                        <div style={{float:'left', width:'2%', height:'100%'}}>
-                            <span style={{height: '700px', display: 'block'}}></span>
+                        <div style={{float:'left', width:'2%', height:'100%' }}>
+                            <span style={{paddingBottom:'100%', display: 'block'}}></span>
                         </div>
 
                         <div style={{float:'left', width:'80%', height:'100%'}}><br/>
@@ -69,22 +70,22 @@ export default class events extends Component {
         {
             return (
                 <Router>
-                    <div className='container' style={{height:'100%', width:'100%', overflow:'hidden', display:'block'}}>
-                        <div id='event-nav' style={{float:'left', width:'18%'}}>
-                            <nav className='navbar navbar-expand-lg navbar-light'>
-                                <ul className='navbar-nav nav-pills flex-column'>
-                                    <li className='navbar-item'><Link to='/events/view' className='nav-link'>View All Events</Link></li>
-                                    <li className='navbar-item'><Link to='/events/create_event' className='nav-link'>Create Event</Link></li>
-                                    <li className='navbar-item'><Link to='/events/modify_event' className='nav-link'>Modify/Delete Event</Link></li>
-                                    <li className='navbar-item'><Link to='/events/update_scores' className='nav-link'>Update Match Score</Link></li>
-                                    <li className='navbar-item'><Link to='/events/register_teams' className='nav-link'>Register Teams</Link></li>
-                                    <span style={{height: '300px'}}></span>
-                                </ul>
-                            </nav> 
+                    <div className='container' style={{height:'100%', width:'100%', overflow:'hidden'}}>
+                        <div id='event-nav' style={{float:'left'}}>
+
+
+                            <Nav fill className='flex-column'>
+                                <Nav.Item><Link to='/events/view' className='nav-link'>View All Events</Link></Nav.Item>
+                                <Nav.Item><Link to='/events/create_event' className='nav-link'>Create Event</Link></Nav.Item>
+                                <Nav.Item><Link to='/events/modify_event' className='nav-link'>Modify/Delete Event</Link></Nav.Item>
+                                <Nav.Item><Link to='/events/update_scores' className='nav-link'>Update Match Score</Link></Nav.Item>
+                                <Nav.Item><Link to='/events/register_teams' className='nav-link'>Register Teams</Link></Nav.Item>                                
+                            </Nav>     
+                                                   
                         </div>
 
-                        <div style={{float:'left', width:'2%', height:'100%'}}>
-                            <span style={{height: '700px', display: 'block'}}></span>
+                        <div style={{float:'left', width:'2%', height:'100%' }}>
+                            <span style={{paddingBottom:'100%', display: 'block'}}></span>
                         </div>
 
                         <div style={{float:'left', width:'80%'}}><br/>
