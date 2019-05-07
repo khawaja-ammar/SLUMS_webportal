@@ -29,9 +29,7 @@ function createPairs (teams, callback) {
 router.get('/:id', (req,res) => {
 	const id = req.params.id
 	const type = "Pairs"
-	//for this sport we need to create matches so
-	//get all teams of this sport
-	var teamsList = []
+	
 	team.find({sportsID:id}, (err,teams) => {
 		if(err){
 			return res.status(400).send(err)
@@ -45,8 +43,7 @@ router.get('/:id', (req,res) => {
 	})
 
 
-	//set in array and pass onto function
-	//function ought to return an array of matches 
+	
 })
 
 module.exports = router
