@@ -26,6 +26,8 @@ function createPairs (teams, callback) {
 	
 }
 
+// round robin
+
 router.get('/:id', (req,res) => {
 	const id = req.params.id
 	const type = "Pairs"

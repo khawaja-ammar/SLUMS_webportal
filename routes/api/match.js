@@ -78,22 +78,6 @@ router.put('/:id/:sportid', (req, res) => {
 		.catch(err => res.status(400).send(err))
 	})
 
-}),
-
-//No options for delete since you cant change number of matches
-/*
-router.delete('/:id', (req,res) => {
-	const name = req.params.id
-	match.findOneAndRemove({name}, (err,doc) => {
-		if(err){
-			return res.status(500).json('Error')
-		}
-		res.send('Success!')
-
-	})
-	// also delete all matches and associated sports and teams
-
 })
-*/
 
 module.exports = router

@@ -11,12 +11,13 @@ const event = require("../../models/events")
 //const validatecreateEvent = require('../../validation/createEvent')
 
 // First GET 
-// default should be ongoing event...... modify
 //currently gets all events
+
 router.get('/:id?', (req, res) => {
-	console.log('WTH')
+	//console.log('WTH')
 	const name = req.params.id
 	if(name){
+		//console.log(req)
 		event.findOne({name}).then( event => {
 			if(!event){
 				return res.status(400).json({namenotfound: "No event found by that name!", name})
@@ -29,7 +30,15 @@ router.get('/:id?', (req, res) => {
 	{
 		var Usermap = {};
 		//no params so get all events
-		event.find({}, (err, events) => {
+		//
+		var today = Date.now()
+		event.find({
+			"start_date": {"$lte": today},
+	
+		
+			"end_date": {"$gte": today}
+		},
+		 (err, events) => {
 
 			if(err){
 				return res.status(400).send(err)
