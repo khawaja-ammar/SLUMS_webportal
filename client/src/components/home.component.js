@@ -26,7 +26,7 @@ export default class home extends Component {
             })
         }
         return (
-            <div>
+            <div className='slide-container'>
                 <Slide {...properties}>
                     {this.state.img.map(function(i, ind) {
                         return (

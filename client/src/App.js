@@ -45,9 +45,9 @@ class App extends Component {
       <Router>
         <div className="container">
 
-          <Navbar id='main_nav' expand='lg'>
+          <Navbar fixed='top' id='main_nav' expand='lg'>
             <Navbar.Brand>
-              <img src={logo} width='80' height='116' alt=''/>
+              <img src={logo} width='60px' height='87px' alt=''/>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls='basic-navbar-nav'/>
             <Navbar.Collapse id='basic-navbar-nav'>
@@ -68,13 +68,14 @@ class App extends Component {
             </Navbar.Collapse>
           </Navbar>
 
-
-          <Route path='/' exact component={home}/>
-          <Route path='/events' component={events}/>
-          <Route path='/sports' component={sports}/>
-          <Route path='/matches' component={matches}/>
-          <Route path='/aboutus' component={aboutus}/>
-          <Route path='/login' render={(props) => <Login {...props} login_button={this.login_button}/>}/>
+          <div id='main_page'>
+            <Route path='/' exact component={home}/>
+            <Route path='/events' component={events}/>
+            <Route path='/sports' component={sports}/>
+            <Route path='/matches' component={matches}/>
+            <Route path='/aboutus' component={aboutus}/>
+            <Route path='/login' render={(props) => <Login {...props} login_button={this.login_button}/>}/>
+          </div>
         </div>
       </Router>
     );
