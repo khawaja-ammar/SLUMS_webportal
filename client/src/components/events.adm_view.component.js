@@ -16,7 +16,19 @@ export default class view_events extends Component {
             sport_modal_show: false,
             sport_modal_id: '',
             match_modal_show: false,
-            match_modal_id: ''
+            match_modal_id: '',
+            match: {
+                team1ID: '',
+                team2ID: '',
+                winner: '',
+                score: '',
+                location: '',
+                date: ''
+            },
+            check: 0,
+            upd_ev: '',
+            upd_sp: '',
+            upd_mt: ''
         }
         this.getData = this.getData.bind(this)
         this.getData()
@@ -36,7 +48,10 @@ export default class view_events extends Component {
                 })
             }
             // this.forceUpdate()
-            this.setState({events: temp})
+            this.setState({events: temp,
+                event_modal_show: false,
+                sport_modal_show: false,
+                match_modal_show: false})
 
         }).catch((err)=> {
             console.log("ERROR")
@@ -130,13 +145,11 @@ export default class view_events extends Component {
         )
     }
 
-    getSportsRows = (sport) => {
-
+    getSportsRows = (sport, event_name) => {
+        sport.ev_name = event_name
         const sport_modal_initial = (e) => {
-            let obj = JSON.parse(e.target.id)
-            delete obj.matches
             this.setState({
-                sport_modal_id: JSON.stringify(obj),
+                sport_modal_id: e.target.id,
                 sport_modal_show: true
             })
         }
@@ -252,7 +265,7 @@ export default class view_events extends Component {
             if (event.sports && event.sports.length > 0) {
                 
                 const sports_row = event.sports.map((sport) => {
-                    return this.getSportsRows(sport)
+                    return this.getSportsRows(sport, event.name)
                 })
     
                 const detail_1 = (
@@ -329,17 +342,19 @@ export default class view_events extends Component {
         
         console.log(obj)
 
-        axios.put(ip, {params: {
+        axios.put(ip + '/' + this.state.upd_ev, {params: {
             name: obj.name,
             st_date: new Date(obj.st_date),
             en_date: new Date(obj.en_date),
             info: obj.info
         }}).then((res) => {
+            this.getData()
             console.log("MOD")
+            console.log(res)
         }).catch((err) => {
             console.log("fail")
         })
-
+        this.state.check = 0
     }
 
     event_handle_change = (e) => {
@@ -361,6 +376,10 @@ export default class view_events extends Component {
         else {
             var ev = JSON.parse(str)
             // console.log(ev)
+            if (this.state.check === 0) {
+                this.state.upd_ev = ev.name
+                this.state.check = 1
+            }
             
             return(
                 <form>
@@ -391,19 +410,20 @@ export default class view_events extends Component {
         console.log('Sport Change')
         let obj = JSON.parse(this.state.sport_modal_id)
         
-        console.log(obj)
+        // console.log(obj)
 
-        // axios.put(ip, {params: {
-        //     name: obj.name,
-        //     st_date: new Date(obj.st_date),
-        //     en_date: new Date(obj.en_date),
-        //     info: obj.info
-        // }}).then((res) => {
-        //     console.log("MOD")
-        // }).catch((err) => {
-        //     console.log("fail")
-        // })
-        
+        axios.put('/api/sports' + '/'+ obj.ev_name + '/' + this.state.upd_sp, {params: {
+            name: obj.name,
+            category: obj.category
+        }}).then((res) => {
+            this.getData()
+            console.log("MOD")
+            console.log(res)
+        }).catch((err) => {
+            console.log("fail")
+            console.log(err.response)
+        })
+        this.state.check = 0
     }
 
     sport_handle_change = (e) => {
@@ -411,6 +431,19 @@ export default class view_events extends Component {
         sp[e.target.id] = e.target.value
         console.log(sp[e.target.id])
         this.setState({sport_modal_id: JSON.stringify(sp)})        
+    }
+
+    sport_match_handle = (e) => {
+        let temp = this.state.match
+        temp[e.target.id] = e.target.value
+        this.setState({
+            match: temp
+        })
+    }
+
+    addmatch = (e) => {
+        e.preventDefault()
+        console.log(this.state.match)
     }
 
     sport_mod = () => {
@@ -423,20 +456,20 @@ export default class view_events extends Component {
             )
         } else {
             var sp = JSON.parse(str)
-            // console.log(sp.name)
+            if (this.state.check === 0) {
+                this.state.upd_sp = sp._id
+                this.state.check = 1
+            }
 
 
             return(
                 <form>
-                    <div align='center'>
-
+                    <div textAlign='center'>
                         <label>Sport Name:</label><br/>
                         <input type='text' id='name' value={sp.name} onChange={this.sport_handle_change}/><br/>
 
                         <label>Category:</label><br/>
                         <input type='text' id='category' value={sp.category} onChange={this.sport_handle_change}/><br/>
-
-
                     </div>
                 </form>
             )
