@@ -5,6 +5,7 @@ import { Nav } from 'react-bootstrap'
 
 
 import view_Events from './events.view.component';
+import adm_view_Events from './events.adm_view.component';
 
 import pla_view_scores from './events.pla_scores.component';
 import pla_view_upcoming from './events.pla_upcoming.component';
@@ -35,8 +36,8 @@ export default class events extends Component {
     }
 
     render() {
-        // if (0)
-        if (this.state.logged_in === 'Login') 
+        if (0)
+        // if (this.state.logged_in === 'Login') 
         {
             return (
                 <Router>
@@ -49,7 +50,7 @@ export default class events extends Component {
                             </Nav>
                         </div>
                             
-                        <div id='event-data' style={{float:'left', width:'100%', height:'100%'}}><br/>
+                        <div id='event-data' style={{float:'left'}}><br/>
                             <Route path='/events/view' component={view_Events}/>
                             <Route path='/events/scores' component={pla_view_scores}/>
                             <Route path='/events/upcoming' component={pla_view_upcoming}/>
@@ -72,8 +73,8 @@ export default class events extends Component {
                             </Nav>                            
                         </div>
 
-                        <div id='event-data' style={{float:'left', width:'100%', heigth:'100%'}}><br/>
-                            <Route path='/events/view' component={view_Events}/>
+                        <div id='event-data' style={{float:'left'}}><br/>
+                            <Route path='/events/view' component={adm_view_Events}/>
                             <Route path='/events/create_event' component={adm_create_ev}/>
                             <Route path='/events/modify_event' component={adm_upd_ev}/>
                             <Route path='/events/update_scores' component={adm_upd_sco}/>

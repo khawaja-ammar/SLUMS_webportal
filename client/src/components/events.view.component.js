@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Table from 'react-bootstrap/Table'
+import { Table, Button } from 'react-bootstrap'
 
 const axios = require('axios')
 const ip = '/api/events'
@@ -10,7 +10,7 @@ export default class view_events extends Component {
         this.state = {
             events: [],
             expandedEvents: [],
-            expandedSports: []
+            expandedSports: [],
         }
         this.getData = this.getData.bind(this)
         this.getData()
@@ -19,8 +19,9 @@ export default class view_events extends Component {
         axios.get(ip).then((res) => {
             console.log("RESPONSE")
             
+            let temp = []
             for (var item in res.data) {
-                this.state.events.push({
+                temp.push({
                     name: res.data[item].name,
                     st_date: res.data[item].start_date,
                     en_date: res.data[item].end_date,
@@ -28,14 +29,13 @@ export default class view_events extends Component {
                     sports: res.data[item].sports
                 })
             }
-            this.forceUpdate()
+            this.setState({events: temp})
 
         }).catch((err)=> {
-            console.log("Error")
+            console.log("ERROR")
             console.log(err)
         })
     }
-
 
     expandedStateEvent = (event) => {
         let ind = this.state.expandedEvents.findIndex(
@@ -73,7 +73,6 @@ export default class view_events extends Component {
         })
     }
 
-
     expandEvent = (event) => {
         let newRows = [...this.state.expandedEvents]
         let ind = newRows.findIndex((id) => {
@@ -93,6 +92,7 @@ export default class view_events extends Component {
     }
 
     getMatchRows = (match, i) => {
+        
         return (
             <tr>
                 <td></td>
@@ -109,13 +109,14 @@ export default class view_events extends Component {
     }
 
     getSportsRows = (sport) => {
+
         let rows = []
         
         const row = (
-            <tr onClick={()=>this.expandSport(sport)}>
+            <tr>
                 <td></td>
                 <td>
-                    <button style={{width: '25px'}}>
+                    <button onClick={()=>this.expandSport(sport)} style={{width: '25px'}}>
                         {this.expandedStateSport(sport) ? '-': '+'}
                     </button>
                 </td>
@@ -136,8 +137,8 @@ export default class view_events extends Component {
     
                 const detail_1 = (
                     <tr>
-                        <td className='sports_details' colSpan='5'>
-                            <Table borderless size='sm' className='tab-sports' >
+                        <td className='match_details' colSpan='100%'>
+                            <Table striped bordered hover size='sm' className='tab-sports' >
                                 <thead>
                                     <tr>
                                         <th></th>
@@ -175,14 +176,14 @@ export default class view_events extends Component {
         return rows;
     }
 
-
     getEventRows = (event) => {
+
         let rows = []
 
         const row = (
-            <tr onClick={()=>this.expandEvent(event)}>
+            <tr>
                 <td>
-                    <button style={{width: '25px'}}>
+                    <button  onClick={()=>this.expandEvent(event)} style={{width: '25px'}}>
                         {this.expandedStateEvent(event) ? '-' : '+'}
                     </button>
                 </td>
@@ -190,6 +191,7 @@ export default class view_events extends Component {
                 <td>{(event.st_date).toString().substring(0, 10)}</td>
                 <td>{(event.en_date).toString().substring(0, 10)}</td>
                 <td>{event.info}</td>
+
             </tr>
         )
 
@@ -204,7 +206,7 @@ export default class view_events extends Component {
     
                 const detail_1 = (
                     <tr>
-                        <td className='sports_details' colSpan='5'>
+                        <td className='sports_details' colSpan='6'>
                             <Table borderless size='sm' className='tab-sports' >
                                 <thead>
                                     <tr>
@@ -212,6 +214,7 @@ export default class view_events extends Component {
                                         <th>{/* <span>Matches</span> */}</th>
                                         <th>Sports Name</th>
                                         <th>Sports Category</th>
+
                                     </tr>
                                 </thead> 
                                 <tbody>

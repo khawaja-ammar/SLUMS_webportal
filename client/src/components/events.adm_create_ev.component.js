@@ -107,7 +107,7 @@ export default class adm_create_ev extends Component {
 
     render() {
         return (
-            <div className='container' style={{textAlign: 'center',height:'100%', width:'100%', overflow:'hidden'}}>
+            <div className='container' style={{textAlign: 'center'}}>
                 <form id='create' onSubmit={this.handleSubmit}>
                     <div style={{float:'left', width:'40%'}}>
                         <label style={{width: '500px', height: '9px', display: 'block'}}></label><br/>
